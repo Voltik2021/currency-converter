@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency-converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class = "header-logo">
+            <img src ="img/logoBank.svg">
+        </div>           
+        <p class="header-menu">БАНК</p>
+        <p class="header-menu">БИЗНЕС</p>
+        <p class="header-menu">ИНВЕСТИЦИИ</p>
+        <p class="header-menu">СТРАХОВАНИЯ</p>
+        <p class="header-menu">МОБАЙЛ</p>
+        <p class="header-menu">ПУТИШЕСТВИЯ</p>
+        <p class="header-menu">РАЗВЛЕЧЕНИЯ</p>
+        <p class ="log-in">ВОЙТИ</p>
+    </header>
+    <main>
+        <h1 class = "main-title">Конвертер валют онлайн</h1>
+        <div class = "main-wrapper">
+            <div class = "wrapper left">
+                <p>У меня есть</p>
+                <div class="div-button-currency">
+                    <button class = "butRUBleft">RUB</button>
+                    <button class = "butUSDleft">USD</button>
+                    <button class = "butEURleft">EUR</button>
+                    <button class = "butGBRleft">GBR</button>
+                    <select class = "select-left">
+                        <option>BYR</option>                        
+                    </select>
+                </div>
+                <div class="div-input">
+                    <input type = "number" class="input" value="1">                    
+                </div>
+            </div>
+            <button class="arrows"></button>
+            <div class = "wrapper right">
+                <p>Хочу преобрести</p>
+                <div class="div-button-currency">
+                    <button class = "butRUBrigth">RUB</button>
+                    <button class = "butUSDrigth">USD</button>
+                    <button class = "butEURrigth">EUR</button>
+                    <button class = "butGBRrigth">GBR</button>
+                    <select class = "select-rigth">
+                        <option>BYR</option>
+                    </select>
+                </div>
+                <div class="div-input">
+                    <input type = "number" class="input">
+                </div>
+            </div>
+        </div>
+    </main>    
+    <script src="script.js"></script>
+</body>
+</html>
