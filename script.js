@@ -10,6 +10,8 @@ let exchangeRateRight = document.querySelector('.exchange-rate-right');
 let inputLeft = document.querySelector('.input-left');
 let inputRight = document.querySelector('.input-right');
 let buttonArrows = document.querySelector('.arrows');
+let loadingScreen = document.querySelector('.loading-screen');
+loadingScreen.style.display = 'none';
 let leftCurrency = 'RUB';
 let rightCurrency = 'USD';
 let arr2Data = [];
@@ -17,18 +19,18 @@ let reverseVariableOne = '';
 let reverseVariableTwo = '';
 gettingCurrencyData();
 
-
-
 selectLeft.addEventListener('change', (e) => {
     leftCurrency = e.target.value;
     gettingCurrencyData();
     colorOfButtons(e, 'true')
+    cleaningOptionsColor()
 });
 
 selectRigth.addEventListener('change', (e) => {
     rightCurrency = e.target.value;
     gettingCurrencyData();
     colorOfButtons(e)
+    cleaningOptionsColor()
 });
 
 buttonLeftCurrency.forEach((item) => {
@@ -78,12 +80,21 @@ buttonArrows.addEventListener('click', () => {
     }    
     reverseСonversion()
     reverseVariable()
+    cleaningOptionsColor()
 })
 
 function reverseVariable() {    
     let a = reverseVariableTwo;
     reverseVariableTwo = reverseVariableOne;
     reverseVariableOne = a;    
+}
+
+function cleaningOptionsColor() {
+    let a = document.querySelectorAll('option');
+    a.forEach((item) => {
+        item.style.backgroundColor = 'white';
+        item.style.color = 'black'
+    })
 }
 
 function addСurrencyInSelect() {    
@@ -112,14 +123,13 @@ function gettingCurrencyData() {
     if (leftCurrency === rightCurrency) {        
         arrData = [{[leftCurrency]:1}, {[rightCurrency]:1}];        
         calculationsAndInsertionInDOM(arrData)        
-    } else {
-    
-        let promiseConverter = new Promise((resolve) => {
+    } else {    
+        let promiseConverter = new Promise((resolve) => {            
             fetch(`https://api.ratesapi.io/api/latest?base=${leftCurrency}&symbols=${rightCurrency}`)
                 .then(response => response.json())
                 .then(data => {                
-                    resolve(data.rates)
-                })
+                    resolve(data.rates)                    
+                })            
         });
         
         let promiseReverseConverter = new Promise((resolve) => {
@@ -129,19 +139,21 @@ function gettingCurrencyData() {
                     resolve(reversedata.rates)
             })
         });
+        
+        let id = setTimeout(() => {
+            onLoadingScreen()
+        }, 500);        
         Promise.all([promiseConverter, promiseReverseConverter])
-            .then((arrData) => {calculationsAndInsertionInDOM(arrData);})
+            .then((arrData) => {calculationsAndInsertionInDOM(arrData); clearTimeout(id); OffLoadingScreen()})
     }
 }
 
-function waitingForResponse(arrData) {
-    let id = setTimeout(() => {
-        console.log('podoshtite')
-    }, 0)
-    if (arrData) {
-        // clearTimeout(id)
-        console.log('vse ok')
-    }
+function onLoadingScreen() {    
+    loadingScreen.style.display = 'flex'; 
+}
+
+function OffLoadingScreen() {    
+    loadingScreen.style.display = 'none';    
 }
 
 function reverseСonversion() {   

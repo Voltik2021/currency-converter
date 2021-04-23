@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class = "reletiv-loading-screen">
+        <div class ="loading-screen">
+            <p class = "loading">loading</p>
+        </div> 
+    </div>    
     <header>
         <div class = "header-logo">
             <img src ="img/logoBank.svg">
@@ -25,7 +30,7 @@
             <div class = "wrapper left">
                 <p>У меня есть</p>
                 <div class="div-button-currency">
-                    <button class = "leftCurrency color-Buttons-left">RUB</button>
+                    <button class = "leftCurrency color-Buttons-left button-color">RUB</button>
                     <button class = "leftCurrency color-Buttons-left">USD</button>
                     <button class = "leftCurrency color-Buttons-left">EUR</button>
                     <button class = "leftCurrency color-Buttons-left">GBP</button>
@@ -34,15 +39,15 @@
                 </div>
                 <div class="div-input">
                     <input type = "number" class="input input-left" value="1">
-                    <p class = 'exchange-rate-left'> </p>                    
+                    <p class = 'exchange exchange-rate-left'> </p>                    
                 </div>
             </div>
-            <button class="arrows"></button>
+            <button class="arrows"></button>            
             <div class = "wrapper right">
                 <p>Хочу преобрести</p>
                 <div class="div-button-currency">
                     <button class = "rightCurrency color-Buttons-right" >RUB</button>
-                    <button class = "rightCurrency color-Buttons-right" >USD</button>
+                    <button class = "rightCurrency color-Buttons-right button-color" >USD</button>
                     <button class = "rightCurrency color-Buttons-right" >EUR</button>
                     <button class = "rightCurrency color-Buttons-right" >GBP</button>
                     <select class = "select-rigth color-Buttons-right" >                        
@@ -50,11 +55,11 @@
                 </div>
                 <div class="div-input">
                     <input type = "number" class="input input-right">
-                    <p class = 'exchange-rate-right'> </p>
+                    <p class = 'exchange exchange-rate-right'> </p>
                 </div>
             </div>
         </div>
-    </main>    
+    </main>        
     <script src="script.js"></script>
 </body>
 </html>
