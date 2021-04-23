@@ -13,8 +13,10 @@ let buttonArrows = document.querySelector('.arrows');
 let leftCurrency = 'RUB';
 let rightCurrency = 'USD';
 let arr2Data = [];
+let reverseVariableOne = '';
+let reverseVariableTwo = '';
 gettingCurrencyData();
-console.log(colorButtonsLeft)
+
 
 
 selectLeft.addEventListener('change', (e) => {
@@ -54,9 +56,35 @@ inputRight.addEventListener('input', (e) => {
 
 })
 
-buttonArrows.addEventListener('click', () => {
+buttonArrows.addEventListener('click', () => {  
+    for (item of colorButtonsLeft){        
+        item.classList.remove('button-color')
+        if (item.innerText === reverseVariableTwo) {            
+            item.classList.add('button-color')
+        } else if(item.querySelector(`[value="${reverseVariableTwo}"]`)) {
+            item.value = reverseVariableTwo;
+            item.classList.add('button-color')    
+        }
+    }
+    for (item of colorButtonsRight) { 
+        item.classList.remove('button-color');
+        if (item.innerText === reverseVariableOne) {            
+            item.classList.add('button-color')                      
+        } else if (item.querySelector(`[value="${reverseVariableOne}"]`)) {            
+            item.value = reverseVariableOne;
+            item.classList.add('button-color');
+
+        }
+    }    
     reverseСonversion()
+    reverseVariable()
 })
+
+function reverseVariable() {    
+    let a = reverseVariableTwo;
+    reverseVariableTwo = reverseVariableOne;
+    reverseVariableOne = a;    
+}
 
 function addСurrencyInSelect() {    
     fetch('https://api.ratesapi.io/api/latest?HTTP/2')
@@ -101,17 +129,27 @@ function gettingCurrencyData() {
                     resolve(reversedata.rates)
             })
         });
-        Promise.all([promiseConverter, promiseReverseConverter]).then((arrData) => { calculationsAndInsertionInDOM(arrData)})
+        Promise.all([promiseConverter, promiseReverseConverter])
+            .then((arrData) => {calculationsAndInsertionInDOM(arrData);})
     }
 }
 
-function reverseСonversion() {
-    console.log(inputRight.value)
-    if (inputRight.value == +(inputLeft.value*arr2Data[0][rightCurrency]).toFixed(4)) {
+function waitingForResponse(arrData) {
+    let id = setTimeout(() => {
+        console.log('podoshtite')
+    }, 0)
+    if (arrData) {
+        // clearTimeout(id)
+        console.log('vse ok')
+    }
+}
+
+function reverseСonversion() {   
+    if (inputRight.value == +(inputLeft.value*arr2Data[0][rightCurrency]).toFixed(4)) {        
         exchangeRateLeft.innerText = `1 ${rightCurrency} = ${arr2Data[1][leftCurrency].toFixed(4)} ${leftCurrency}`;
         exchangeRateRight.innerText = `1 ${leftCurrency} = ${arr2Data[0][rightCurrency].toFixed(4)} ${rightCurrency}`;
         inputRight.value = +(inputLeft.value*arr2Data[1][leftCurrency]).toFixed(4); 
-    } else {
+    } else {        
         exchangeRateLeft.innerText = `1 ${leftCurrency} = ${arr2Data[0][rightCurrency].toFixed(4)} ${rightCurrency}`;
         exchangeRateRight.innerText = `1 ${rightCurrency} = ${arr2Data[1][leftCurrency].toFixed(4)} ${leftCurrency}`;    
         inputRight.value = +(inputLeft.value*arr2Data[0][rightCurrency]).toFixed(4);
@@ -119,7 +157,9 @@ function reverseСonversion() {
 }
 
 function calculationsAndInsertionInDOM(arrData){    
-    arr2Data = arrData;    
+    arr2Data = arrData;        
+    reverseVariableOne = leftCurrency;
+    reverseVariableTwo = rightCurrency;
     exchangeRateLeft.innerText = `1 ${leftCurrency} = ${arr2Data[0][rightCurrency].toFixed(4)} ${rightCurrency}`;
     exchangeRateRight.innerText = `1 ${rightCurrency} = ${arr2Data[1][leftCurrency].toFixed(4)} ${leftCurrency}`;    
     inputRight.value = +(inputLeft.value*arr2Data[0][rightCurrency]).toFixed(4);    
