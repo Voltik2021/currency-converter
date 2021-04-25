@@ -152,7 +152,7 @@ function onLoadingScreen() {
     loadingScreen.style.display = 'flex'; 
 }
 
-function OffLoadingScreen() {    
+function offLoadingScreen() {    
     loadingScreen.style.display = 'none';    
 }
 
